@@ -1,1 +1,1 @@
-# social-users
+# social-activities
