@@ -2,8 +2,9 @@
   "name": "@social/activities",
   "version": "0.0.0",
   "description": "Microservice to manage activities",
-  "main": "index.js",
+  "main": "./src/activities.js",
   "scripts": {
+    "start": "node ./src/activities.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Michael Jonker",
