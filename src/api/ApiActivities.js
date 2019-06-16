@@ -12,7 +12,7 @@ class ApiActivity extends Api {
         const newActivity = activity;
         newActivity.uid = uniqid();
         newActivity.ownerId = ownerId;
-        newActivity.created = Date.now();
+        newActivity.created = new Date(Date.now()).toISOString();
         return this.api.create('persistance.activity', newActivity, ownerId)
             .then(response => this.checkStatus(response));
     }

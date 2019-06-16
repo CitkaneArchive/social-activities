@@ -3,6 +3,12 @@ const ApiActivities = require('./api/ApiActivities');
 
 const sockets = new Sockets('activities');
 const api = new ApiActivities(sockets);
+const bffSubscriptions = [
+    'activities.activity-created',
+    'activities.activity-updated',
+    'activities.activity-deleted'
+];
+sockets.publish('bff.makesubscriptions', bffSubscriptions);
 
 const apiInterface = {
     create: {
@@ -13,6 +19,8 @@ const apiInterface = {
             })
     },
     read: {
+        bffSubscriptions: () => api.resolve(200, bffSubscriptions),
+
         activities: request => api.getReqSocket('persistance').proxy(request),
         activity: request => api.getReqSocket('persistance').proxy(request)
     },
