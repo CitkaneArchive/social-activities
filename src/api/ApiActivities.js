@@ -3,13 +3,15 @@ const uniqid = require('uniqid');
 const Api = require('../../../social-deployment/templates/nodejs/api/Api');
 
 class ApiActivity extends Api {
-    constructor(apiInterface) {
-        super('activities', apiInterface);
+    constructor(sockets) {
+        super(sockets, false);
     }
 
     createNewActivity(activity, ownerId = null) {
+        if (!ownerId) return this.reject(400, 'Uid of creator required');
         const newActivity = activity;
         newActivity.uid = uniqid();
+        newActivity.ownerId = ownerId;
         return this.api.create('persistance.activity', newActivity, ownerId)
             .then(response => this.checkStatus(response));
     }

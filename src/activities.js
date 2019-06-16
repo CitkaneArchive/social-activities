@@ -8,16 +8,28 @@ const apiInterface = {
     create: {
         activity: request => api.createNewActivity(request.args[0], request.ownerId)
             .then((response) => {
-                api.publish('activities.activity-created', response.payload);
+                api.sockets.publish('activities.activity-created', response.payload);
                 return response;
             })
-            .catch(err => err)
     },
     read: {
-        activities: request => api.getReqSocket('persistance').proxy(request)
+        activities: request => api.getReqSocket('persistance').proxy(request),
+        activity: request => api.getReqSocket('persistance').proxy(request)
     },
-    update: {},
-    delete: {}
+    update: {
+        activity: request => api.getReqSocket('persistance').proxy(request)
+            .then((response) => {
+                api.sockets.publish('activities.activity-updated', response.payload);
+                return response;
+            })
+    },
+    delete: {
+        activity: request => api.getReqSocket('persistance').proxy(request)
+            .then((response) => {
+                api.sockets.publish('activities.activity-deleted', response.payload);
+                return response;
+            })
+    }
 };
 
 sockets.makeResponder(apiInterface);
