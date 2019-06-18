@@ -1,3 +1,4 @@
+
 const Sockets = require('../../social-deployment/templates/nodejs/api/Sockets');
 const ApiActivities = require('./api/ApiActivities');
 
@@ -11,6 +12,7 @@ const bffSubscriptions = [
 sockets.publish('bff.makesubscriptions', bffSubscriptions);
 
 const apiInterface = {
+
     create: {
         activity: request => api.createNewActivity(request.args[0], request.ownerId)
             .then((response) => {
