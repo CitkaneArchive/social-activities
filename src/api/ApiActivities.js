@@ -1,6 +1,6 @@
 
 const uniqid = require('uniqid');
-const Api = require('../../../social-deployment/templates/nodejs/api/Api');
+const Api = require('../templates/Api');
 
 class ApiActivity extends Api {
     constructor(sockets) {
