@@ -1,0 +1,56 @@
+{
+  "consumer": {
+    "name": "social-activities"
+  },
+  "provider": {
+    "name": "social-persistance"
+  },
+  "messages": [
+    {
+      "description": "persistance.create.activity",
+      "providerStates": [
+        {
+          "name": {
+            "ownerId": "test-social-activities",
+            "action": "persistance",
+            "command": "activity",
+            "args": [
+              {
+                "title": "Test Activity",
+                "about": "About the activity",
+                "date": "2019-06-18",
+                "uid": "1v2cmd8jx60p3tu",
+                "ownerId": "test-social-activities",
+                "created": "2019-06-21T11:35:03.329Z"
+              }
+            ]
+          },
+          "params": null
+        }
+      ],
+      "contents": {
+        "status": 201,
+        "payload": {
+          "title": "Test Activity",
+          "about": "About the activity",
+          "date": "2019-06-18",
+          "uid": "1v2cmd8jx60p3tu",
+          "ownerId": "test-social-activities",
+          "created": "2019-06-21T11:35:03.329Z"
+        }
+      },
+      "matchingRules": {
+        "body": {
+        }
+      },
+      "metaData": {
+        "content-type": "application/json"
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  }
+}

@@ -15,6 +15,7 @@ const apiInterface = {
 
     create: {
         activity: request => api.createNewActivity(request.args[0], request.ownerId)
+            .then(proxyRequest => api.getReqSocket('persistance').proxy(proxyRequest))
             .then((response) => {
                 api.sockets.publish('activities.activity-created', response.payload);
                 return response;
@@ -43,3 +44,9 @@ const apiInterface = {
 };
 
 sockets.makeResponder(apiInterface);
+
+function gracefulShutdown() {
+    console.log('Gracefully shutting down social-activities');
+    process.exit();
+}
+module.exports = { apiInterface, api, gracefulShutdown };

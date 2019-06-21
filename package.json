@@ -5,12 +5,14 @@
   "main": "./src/activities.js",
   "scripts": {
     "start": "node ./src/activities.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:consumer": "NODE_ENV=test mocha ./tests/consumer/**/*.pact.js",
+    "test:publish": "NODE_ENV=test node ./tests/publishPacts"
   },
   "author": "Michael Jonker",
   "license": "UNLICENSED",
   "dependencies": {
     "config": "^3.1.0",
+    "fs-extra": "^8.0.1",
     "uniqid": "^5.0.3",
     "zeromq": "^5.1.0"
   },
@@ -18,6 +20,7 @@
     "@pact-foundation/pact": "^8.2.6",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "chai-date-string": "^0.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
