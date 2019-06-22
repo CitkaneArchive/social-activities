@@ -5,6 +5,7 @@
 const LOG_LEVEL = process.env.LOG_LEVEL || 'WARN';
 const { MessageConsumerPact, synchronousBodyHandler } = require('@pact-foundation/pact');
 const path = require('path');
+const fs = require('fs-extra');
 const chai = require('chai');
 const dateString = require('chai-date-string');
 const { apiInterface, api, gracefulShutdown } = require('../../src/activities');
@@ -16,10 +17,10 @@ const pactsDir = path.join(__dirname, '../pacts');
 describe('social-activities consumer', () => {
     let messagePact;
     before(() => {
+        fs.removeSync(path.join(pactsDir, 'social-activities-social-persistance.json'));
         messagePact = new MessageConsumerPact({
             consumer: 'social-activities',
             provider: 'social-persistance',
-            pactfileWriteMode: 'update',
             dir: pactsDir,
             logLevel: LOG_LEVEL,
             spec: 2
