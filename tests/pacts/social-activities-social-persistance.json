@@ -12,16 +12,16 @@
         {
           "name": {
             "ownerId": "test-social-activities",
-            "action": "persistance",
+            "action": "create",
             "command": "activity",
             "args": [
               {
                 "title": "Test Activity",
                 "about": "About the activity",
                 "date": "2019-06-18",
-                "uid": "sflrqjx7yita3",
+                "uid": "3yrket2jx98za0p",
                 "ownerId": "test-social-activities",
-                "created": "2019-06-22T20:09:42.842Z"
+                "created": "2019-06-23T17:50:13.368Z"
               }
             ]
           },
@@ -34,9 +34,9 @@
           "title": "Test Activity",
           "about": "About the activity",
           "date": "2019-06-18",
-          "uid": "sflrqjx7yita3",
+          "uid": "3yrket2jx98za0p",
           "ownerId": "test-social-activities",
-          "created": "2019-06-22T20:09:42.842Z"
+          "created": "2019-06-23T17:50:13.368Z"
         }
       },
       "matchingRules": {

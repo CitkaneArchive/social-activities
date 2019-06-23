@@ -1,23 +1,25 @@
 
 const Sockets = require('./templates/Sockets');
+const BaseApi = require('./templates/BaseApi');
 const ApiActivities = require('./api/ApiActivities');
 
 const sockets = new Sockets('activities');
-const api = new ApiActivities(sockets);
+const { api } = new BaseApi(sockets);
+const activities = new ApiActivities(sockets, api);
 const bffSubscriptions = [
     'activities.activity-created',
     'activities.activity-updated',
     'activities.activity-deleted'
 ];
-sockets.publish('bff.makesubscriptions', bffSubscriptions);
+api.publish('bff.makesubscriptions', bffSubscriptions);
 
 const apiInterface = {
 
     create: {
-        activity: request => api.createNewActivity(request.args[0], request.ownerId)
+        activity: request => activities.createNewActivity(request.args[0], request.ownerId)
             .then(proxyRequest => api.getReqSocket('persistance').proxy(proxyRequest))
             .then((response) => {
-                api.sockets.publish('activities.activity-created', response.payload);
+                api.publish('activities.activity-created', response.payload);
                 return response;
             })
     },
@@ -30,14 +32,14 @@ const apiInterface = {
     update: {
         activity: request => api.getReqSocket('persistance').proxy(request)
             .then((response) => {
-                api.sockets.publish('activities.activity-updated', response.payload);
+                api.publish('activities.activity-updated', response.payload);
                 return response;
             })
     },
     delete: {
         activity: request => api.getReqSocket('persistance').proxy(request)
             .then((response) => {
-                api.sockets.publish('activities.activity-deleted', response.payload);
+                api.publish('activities.activity-deleted', response.payload);
                 return response;
             })
     }
@@ -49,4 +51,9 @@ function gracefulShutdown() {
     console.log('Gracefully shutting down social-activities');
     process.exit();
 }
-module.exports = { apiInterface, api, gracefulShutdown };
+module.exports = {
+    apiInterface,
+    api,
+    sockets,
+    gracefulShutdown
+};

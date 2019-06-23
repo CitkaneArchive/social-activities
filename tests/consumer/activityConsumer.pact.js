@@ -8,7 +8,12 @@ const path = require('path');
 const fs = require('fs-extra');
 const chai = require('chai');
 const dateString = require('chai-date-string');
-const { apiInterface, api, gracefulShutdown } = require('../../src/activities');
+const {
+    apiInterface,
+    api,
+    sockets,
+    gracefulShutdown
+} = require('../../src/activities');
 
 const { expect } = chai;
 chai.use(dateString);
@@ -42,7 +47,7 @@ describe('social-activities consumer', () => {
         let topic;
         let topics;
         try {
-            [lastMessage] = api.sockets.publisher._outgoing.lastBatch.content;
+            [lastMessage] = sockets.publisher._outgoing.lastBatch.content;
             [topic, topics] = JSON.parse(lastMessage.toString());
             topics = JSON.parse(topics);
         } catch (err) {
@@ -95,7 +100,7 @@ describe('social-activities consumer', () => {
             let topic;
             let payload;
             try {
-                [lastMessage] = api.sockets.publisher._outgoing.lastBatch.content;
+                [lastMessage] = sockets.publisher._outgoing.lastBatch.content;
                 [topic, payload] = JSON.parse(lastMessage.toString());
                 payload = JSON.parse(payload);
             } catch (err) {
