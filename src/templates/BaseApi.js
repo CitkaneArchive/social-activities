@@ -20,7 +20,7 @@ const malformedErrorMsg = {
     message: 'malformed api call'
 };
 
-function makeRequest(resource, args = [], ownerId) {
+function makeRequestObject(resource, args = [], ownerId) {
     let thisArgs = args;
     if (!Array.isArray(thisArgs)) thisArgs = [thisArgs];
     return new Promise((resolve, reject) => {
@@ -44,7 +44,7 @@ function GetReqSocket(type) {
 
 GetReqSocket.prototype.send = async function (ownerId, action, command, args) {
     try {
-        const request = makeRequest(ownerId, action, command, args);
+        const request = makeRequestObject(ownerId, action, command, args);
         return this.proxy(request);
     } catch (err) {
         return err;
@@ -97,7 +97,7 @@ class BaseApi {
         };
 
         /** @todo write the documentation */
-        this.makeRequest = makeRequest;
+        this.makeRequestObject = makeRequestObject;
 
         /** @namespace module:activities.pubsub */
         this.sockets = sockets;

@@ -13,7 +13,7 @@ class ApiActivity extends Api {
         newActivity.uid = uniqid();
         newActivity.ownerId = ownerId;
         newActivity.created = new Date(Date.now()).toISOString();
-        return this.makeRequest('persistance.activity', newActivity, ownerId);
+        return this.makeRequestObject('create.activity', newActivity, ownerId);
     }
 }
 

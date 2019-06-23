@@ -69,7 +69,7 @@ describe('social-activities consumer', () => {
                 expect(response.payload.created).to.be.a.dateString();
                 expect(response.payload.ownerId).to.equal('test-social-activities');
             }
-            let request = await api.makeRequest('create.activity', {
+            let request = await api.makeRequestObject('create.activity', {
                 title: 'Test Activity',
                 about: 'About the activity',
                 date: '2019-06-18'
