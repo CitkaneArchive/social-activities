@@ -42,7 +42,7 @@ describe('social-activities consumer', () => {
         expect(process.env.NODE_ENV).to.equal('test');
     });
 
-    it('publishes a list of subscription topics to \'bff.makesubscriptions\'', () => {
+    it('publishes a list of subscription topics to \'bff/makesubscriptions\'', () => {
         let lastMessage;
         let topic;
         let topics;
@@ -53,7 +53,7 @@ describe('social-activities consumer', () => {
         } catch (err) {
             throw err;
         }
-        expect(topic).to.equal('bff.makesubscriptions');
+        expect(topic).to.equal('bff/makesubscriptions');
         expect(topics.length).to.equal(3);
     });
     describe('create.activity', () => {
@@ -95,7 +95,7 @@ describe('social-activities consumer', () => {
                 .verify(synchronousBodyHandler(handler));
         });
 
-        it('publishes the new activity to the \'activities.activity-created\' event', () => {
+        it('publishes the new activity to the \'activities/activity-created\' event', () => {
             let lastMessage;
             let topic;
             let payload;
@@ -107,7 +107,7 @@ describe('social-activities consumer', () => {
                 throw err;
             }
 
-            expect(topic).to.equal('activities.activity-created');
+            expect(topic).to.equal('activities/activity-created');
             expect(payload).to.be.an('object');
             expect(payload.title).to.equal('Test Activity');
         });

@@ -14,3 +14,8 @@ module.exports = {
         title, about, date, ownerId, created, uid
     })
 };
+
+/**
+ * @typedef module:activities~activities
+ * @property {activity} uid - an object of {@link activity}s indexed by their uid.
+ */
