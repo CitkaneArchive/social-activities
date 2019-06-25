@@ -34,6 +34,11 @@ api.publish('bff/makesubscriptions', bffSubscriptions);
  * @event module:activities.activities/activity-deleted
  * @type {activity}
  */
+/**
+ * Publishes the entity uid for which to delete votes
+ * @event module:activities.voting/delete
+ * @type {string}
+ */
 const apiInterface = {
     /**
      * @interface
@@ -152,10 +157,12 @@ const apiInterface = {
          * @example {@link module:api}.delete('activities.activity', {@link activity}, {@link ownerId}).then(({@link response}) => {...});;
          * @returns {(response|response-error)} 205:{@link activity} - the supplied activity object
          * @emits module:activities.activities/activity-deleted
+         * @emits module:activities.voting/delete
          * */
         activity: request => api.getReqSocket('persistance').proxy(request)
             .then((response) => {
                 api.publish('activities/activity-deleted', response.payload);
+                api.publish('voting/delete', response.payload.uid);
                 return response;
             })
     }
